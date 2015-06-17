@@ -1,67 +1,62 @@
 ====================================
-Getting Started with the LLVM System  
+开始使用LLVM系统
 ====================================
 
 .. contents::
    :local:
 
-Overview
+概述
 ========
 
-Welcome to LLVM! In order to get started, you first need to know some basic
-information.
+欢迎使用LLVM！为了准备好开始，你首先得了解些一些基本信息。
 
-First, LLVM comes in three pieces. The first piece is the LLVM suite. This
-contains all of the tools, libraries, and header files needed to use LLVM.  It
-contains an assembler, disassembler, bitcode analyzer and bitcode optimizer.  It
-also contains basic regression tests that can be used to test the LLVM tools and
-the Clang front end.
+首先 LLVM是由三部分组成。第一部分是 LLVM suite， 这部分包含了使用LLVM
+所需得工具、库、头文件。它包含了一个汇编器、逆向汇编器、bitcode 分析器
+和bitcode 优化器。 它也包含了基本的退化测试用例，这些用例可以被用于测试LLVM 工具
+和 Clang 前端。
 
-The second piece is the `Clang <http://clang.llvm.org/>`_ front end.  This
-component compiles C, C++, Objective C, and Objective C++ code into LLVM
-bitcode. Once compiled into LLVM bitcode, a program can be manipulated with the
-LLVM tools from the LLVM suite.
+第二部分是 `Clang <http://clang.llvm.org/>`_ 前端。这部分将C, C++, Objective C
+和 Objective C++ 代码编译为LLVM bitcode. 一旦程序编译成LLVM bitcode,
+它将可以被LLVM suite里的LLVM 工具所使用。
 
-There is a third, optional piece called Test Suite.  It is a suite of programs
-with a testing harness that can be used to further test LLVM's functionality
-and performance.
+这里还有第三部分，同时也是可选的部分称为 Test
+Suite。它是用于测试LLVM的功能性和性能的韧性测试的程序的一个集合。
 
-Getting Started Quickly (A Summary)
+快速开始 （总结）
 ===================================
 
-The LLVM Getting Started documentation may be out of date.  So, the `Clang
-Getting Started <http://clang.llvm.org/get_started.html>`_ page might also be a
-good place to start.
+LLVM 快速开始文档可能有些陈旧了。所以 `Clang 快速开始
+<http://clang.llvm.org/get_started.html>`_ 页面也许是一个更适合做快速开始。
 
-Here's the short story for getting up and running quickly with LLVM:
+这里是一个简短LLVM快速开始的说明：
 
-#. Read the documentation.
-#. Read the documentation.
-#. Remember that you were warned twice about reading the documentation.
-#. Checkout LLVM:
+#. 阅读文档。
+#. 阅读文档。
+#. 时刻记住你被警告了两次，请阅读文档。
+#. 检出 LLVM:
 
    * ``cd where-you-want-llvm-to-live``
    * ``svn co http://llvm.org/svn/llvm-project/llvm/trunk llvm``
 
-#. Checkout Clang:
+#. 检出 Clang:
 
    * ``cd where-you-want-llvm-to-live``
    * ``cd llvm/tools``
    * ``svn co http://llvm.org/svn/llvm-project/cfe/trunk clang``
 
-#. Checkout Compiler-RT:
+#. 检出 Compiler-RT:
 
    * ``cd where-you-want-llvm-to-live``
    * ``cd llvm/projects``
    * ``svn co http://llvm.org/svn/llvm-project/compiler-rt/trunk compiler-rt``
 
-#. Get the Test Suite Source Code **[Optional]**
+#. 获取Test Suite 的源代码 **[可选]**
 
    * ``cd where-you-want-llvm-to-live``
    * ``cd llvm/projects``
    * ``svn co http://llvm.org/svn/llvm-project/test-suite/trunk test-suite``
 
-#. Configure and build LLVM and Clang:
+#. 配置并编译 LLVM and Clang:
    
    The usual build uses `CMake <CMake.html>`_. If you would rather use
    autotools, see `Building LLVM with autotools <BuildingLLVMWithAutotools.html>`_.
@@ -71,7 +66,7 @@ Here's the short story for getting up and running quickly with LLVM:
    * ``cd build``
    * ``cmake -G <generator> [options] <path to llvm sources>``
      
-     Some common generators are:
+     一些常见的cmake generators 是:
 
      * ``Unix Makefiles`` --- for generating make-compatible parallel makefiles.
      * ``Ninja`` --- for generating `Ninja <http://martine.github.io/ninja/>`
@@ -80,7 +75,7 @@ Here's the short story for getting up and running quickly with LLVM:
         solutions.
      * ``Xcode`` --- for generating Xcode projects.
      
-     Some Common options:
+     一些常见的选项:
 
      * ``-DCMAKE_INSTALL_PREFIX=directory`` --- Specify for *directory* the full
        pathname of where you want the LLVM tools and libraries to be installed
@@ -92,7 +87,7 @@ Here's the short story for getting up and running quickly with LLVM:
      * ``-DLLVM_ENABLE_ASSERTIONS=On`` --- Compile with assertion checks enabled
        (default is Yes for Debug builds, No for all other build types).
 
-   * Run your build tool of choice!
+   * 运行你之前选定的编译工具!
 
      * The default target (i.e. ``make``) will build all of LLVM
 
@@ -102,27 +97,25 @@ Here's the short story for getting up and running quickly with LLVM:
      * CMake will generate build targets for each tool and library, and most
        LLVM sub-projects generate their own ``check-<project>`` target.
 
-   * For more information see `CMake <CMake.html>`_
+   * 更多信息请见 `CMake <CMake.html>`_
 
-   * If you get an "internal compiler error (ICE)" or test failures, see
+   * 如果你遇到一个"internal compiler error (ICE)" 错误或者测试是吧，请见
      `below`_.
 
-Consult the `Getting Started with LLVM`_ section for detailed information on
-configuring and compiling LLVM.  See `Setting Up Your Environment`_ for tips
-that simplify working with the Clang front end and LLVM tools.  Go to `Program
-Layout`_ to learn about the layout of the source code tree.
+咨询 `Getting Started with LLVM`_ 那节可以获取详细的配置和编译LLVM的信息。 咨询
+`Setting Up Your Environment`_ 节可以获取简化使用Clang 前端和 LLVM
+工具的一些小贴士。咨询 `Program Layout`_ 节获取源代码的结构。
 
-Requirements
+预先要求
 ============
 
-Before you begin to use the LLVM system, review the requirements given below.
-This may save you some trouble by knowing ahead of time what hardware and
-software you will need.
+在开始使用LLVM系统之前，请复查下下面的基本要求是否得到满足。
+这可能会避免一些麻烦，如果事先知道了你所需的硬件和软件。
 
-Hardware
+硬件
 --------
 
-LLVM is known to work on the following host platforms:
+LLVM 已知可以在下列系统中工作
 
 ================== ===================== =============
 OS                 Arch                  Compilers               
@@ -143,34 +136,28 @@ Windows x64        x86-64                Visual Studio
 
 .. note::
 
-  #. Code generation supported for Pentium processors and up
-  #. Code generation supported for 32-bit ABI only
-  #. To use LLVM modules on Win32-based system, you may configure LLVM
-     with ``-DBUILD_SHARED_LIBS=On`` for CMake builds or ``--enable-shared``
-     for configure builds.
-  #. MCJIT not working well pre-v7, old JIT engine not supported any more.
+  #. 代码生成支持在奔腾或者更高版本的CPU上工作
+  #. 代码生成仅支持在32位的ABI上工作
+  #. 如果在Win32 系统上使用LLVM模块，你可能需要在配置LLVM时候传入
+     ``-DBUILD_SHARED_LIBS=On`` 对于CMake
+     或者 ``--enable-shared`` 对于configure 编译。
+  #. MCJIT 不能在早于ARMv7的系统上工作，旧的JIT系统也不再被支持。
 
-Note that you will need about 1-3 GB of space for a full LLVM build in Debug
-mode, depending on the system (it is so large because of all the debugging
-information and the fact that the libraries are statically linked into multiple
-tools).  If you do not need many of the tools and you are space-conscious, you
-can pass ``ONLY_TOOLS="tools you need"`` to make.  The Release build requires
-considerably less space.
+注意到你可能需要1-3GB
+的空间用于调试模式的LLVM编译，这取决于使用的系统（它也有可能非常大，因为包含了所有的调试信息和库都被静态地链接进这些工具中）。
+如果你没有需要很多工具，而且你是对空间占用比较敏感，你可以再make时候传入
+``ONLY_TOOLS="tools you need"``。 当然 Release 编译需要少得多的磁盘空间。
 
-The LLVM suite *may* compile on other platforms, but it is not guaranteed to do
-so.  If compilation is successful, the LLVM utilities should be able to
-assemble, disassemble, analyze, and optimize LLVM bitcode.  Code generation
-should work as well, although the generated native code may not work on your
-platform.
+LLVM suite *可能* 可以在其他平台上编译，但是我们不保障这一点。
+如果编译成功了，那么LLVM工具应该可以正确的汇编、反汇编、分析、优化LLVM bitcode。
+代码生成应该可以正常的工作，尽管生成的代码能不能在你当前的平台下执行。
 
-Software
+软件
 --------
 
-Compiling LLVM requires that you have several software packages installed. The
-table below lists those required packages. The Package column is the usual name
-for the software package that LLVM depends on. The Version column provides
-"known to work" versions of the package. The Notes column describes how LLVM
-uses the package and provides other details.
+编译LLVM 需要你有安装有相关的软件包。下面列表列出了这些需要的软件包。Package 列
+是LLVM依赖的软件。Version 列是列出了 "已知可以工作的” 的这些包的版本号。 Notes
+列描述了LLVM如何使用了这些包，并提供了其他一些细节。
 
 =========================================================== ============ ==========================================
 Package                                                     Version      Notes
@@ -187,19 +174,16 @@ Package                                                     Version      Notes
 
 .. note::
 
-   #. Only the C and C++ languages are needed so there's no need to build the
-      other languages for LLVM's purposes. See `below` for specific version
-      info.
-   #. Only needed if you want to run the automated test suite in the
-      ``llvm/test`` directory.
-   #. If you want to make changes to the configure scripts, you will need GNU
-      autoconf (2.60), and consequently, GNU M4 (version 1.4 or higher). You
-      will also need automake (1.9.6). We only use aclocal from that package.
-   #. Optional, adds compression / uncompression capabilities to selected LLVM
+   #. 编译LLVM时候只有C 和 C++ 语言是被需要的，其他语言的支持是不需要的。见
+      `below` 查看更具体的版本信息。
+   #. 只有当你想去运行``llvm/test`` 目录中的自动化测试用例时候才会需要。
+   #. 当你需要去改动configure 脚本配置文件时候，你会需要GNU autoconf (2.60)，
+      和 GNU M4 (1.4 或者更高). 你也会需要 automake (1.9.6)。
+      我们只在这个包里用aclocal。
+   #. 可选的，在选定的LLVM 工具中添加压缩／解压缩支持。
       tools.
 
-Additionally, your compilation host is expected to have the usual plethora of
-Unix utilities. Specifically:
+另外 你的编译环境宿主系统应该有下列常见的Unix工具，特别是：
 
 * **ar** --- archive library builder
 * **bzip2** --- bzip2 command for distribution generation
@@ -229,17 +213,14 @@ Unix utilities. Specifically:
 .. _below:
 .. _check here:
 
-Host C++ Toolchain, both Compiler and Standard Library
+宿主系统的 C++ 编译链，包含编译器和标准库
 ------------------------------------------------------
 
-LLVM is very demanding of the host C++ compiler, and as such tends to expose
-bugs in the compiler. We are also planning to follow improvements and
-developments in the C++ language and library reasonably closely. As such, we
-require a modern host C++ toolchain, both compiler and standard library, in
-order to build LLVM.
+LLVM 是非常依赖于宿主的C++ 编译器，很容易就受到这些编译器的bug的影响。
+我们机会紧跟C++ 语言和库的改进和发展，所以我门需要一个现代的C++
+工具链，比如编译器和标准库，用于编译LLVM。
 
-For the most popular host toolchains we check for specific minimum versions in
-our build systems:
+在最流行的编译链中我们检查了编译系统所需的最低版本：
 
 * Clang 3.1
 * GCC 4.7
